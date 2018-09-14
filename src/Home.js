@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import "./styles/Header.css";
+import Modal from "react-bootstrap4-modal";
 
 class Home extends Component {
-  state = {
-    count: 0,
-    tags: ["tag1", "tag2", "tag3"]
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+      count: 0,
+      tags: ["tag1", "tag2", "tag3"]
+    };
+  }
 
   styles = {
     fontSize: "16px",
@@ -35,6 +40,28 @@ class Home extends Component {
             <li key={tag}>{tag}</li>
           ))}
         </ul>
+        <button className="btn btn-primary" onClick={this.showModal}>
+          Show modal
+        </button>
+        <Modal
+          visible={this.state.visible}
+          dialogClassName="modal-lg"
+          onClickBackdrop={this.hideModal}
+        >
+          <div className="modal-header">
+            <h5 className="modal-title">Test modal</h5>
+          </div>
+          <div className="modal-body">Testing!</div>
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.hideModal}
+            >
+              OK
+            </button>
+          </div>
+        </Modal>
       </div>
     );
   }
@@ -50,5 +77,12 @@ class Home extends Component {
     //  we can also wright it like below
     // return this.state.count == 0 ? "Zero" : this.state.count;
   }
+  showModal = () => {
+    this.setState({ visible: true });
+  };
+
+  hideModal = () => {
+    this.setState({ visible: false });
+  };
 }
 export default Home;
